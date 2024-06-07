@@ -5,7 +5,6 @@ from data import vertices
 from simulated_annealing import simulated_annealing
 from PySide6 import QtCore, QtWidgets
 
-
 basedir = os.path.dirname(__file__)
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -27,10 +26,6 @@ class MainWindow(QtWidgets.QMainWindow):
         #Add label to points
         self.draw_label_of_first_state(self.plot_graph, self.SA_result[0][0])
 
-
-        
-       
-
         #Update plot
         self.timer = QtCore.QTimer(self)
         self.timer.setInterval(300)
@@ -40,7 +35,6 @@ class MainWindow(QtWidgets.QMainWindow):
     
    
     def update_plot(self):
-        ##Simulated Annealing goes in here
         solution = self.SA_result[0]
         coordinate_X = self.SA_result[1]
         coordinate_Y = self.SA_result[2]
@@ -48,15 +42,15 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.loop == len(solution) - 1:
             best_X = [x.horizon for x in best_solution]
             best_Y = [y.vertical for y in best_solution]
-            #temp = [point.element for point in best_solution]
-            #print(temp)
+            # temp = [point.element for point in best_solution]
+            # print(temp)
             self.line.setData(best_X, best_Y)
         elif self.loop >= len(solution):
             pass
         else:
             self.line.setData(coordinate_X[self.loop], coordinate_Y[self.loop])
         self.loop += 1
-
+        
         # for i in range(len(solution)):
         #     self.line.setData(coordinate_X[i], coordinate_Y[i])
             # list_point = solution[i]

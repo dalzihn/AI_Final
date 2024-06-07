@@ -1,8 +1,10 @@
 import random
 import math
 from data import vertices, list_vertices
+from graph import Vertex
 
 def generate_random_state_traverse(cities):
+    '''Generate a random state'''
     vertices = list(cities.keys())
     random_state = [vertices[0]]
     while True:
@@ -17,6 +19,7 @@ def generate_random_state_traverse(cities):
     return random_state
 
 def distance(state, euclidean = False): 
+    '''Calculate the total distance'''
     d = 0
     if euclidean:
         for i in range(len(state) - 1):
@@ -29,16 +32,18 @@ def distance(state, euclidean = False):
     return d
 
 def Haversine_distance(first_vertex, second_vertex):
+    '''Calculate Haversine distance'''
     x_lat = math.radians(first_vertex.horizon)
     x_long = math.radians(first_vertex.vertical)
     y_lat = math.radians(second_vertex.horizon)
     y_long = math.radians(second_vertex.vertical)
-
+    r = 6371 #Radius of the Earth
     theta = math.sqrt(math.sin((x_lat - y_lat) / 2)**2 + math.cos(x_lat)*math.cos(y_lat)*(math.sin((x_long - y_long) / 2)**2))
 
-    return 2*math.asin(theta)
+    return 2*r*math.asin(theta)
 
 def Euclidean_distance(first_vertex, sencond_vertex):
+    '''Calculate Euclidean distance'''
     x1 = first_vertex.horizon
     y1 = first_vertex.vertical
     x2 = sencond_vertex.horizon
@@ -46,7 +51,7 @@ def Euclidean_distance(first_vertex, sencond_vertex):
     return math.sqrt((x2 - x1)**2 + (y2 - y1)**2) 
 
 def swap_cities(state): #state is a tour
-    '''Swap 2 cities'''
+    '''Create neighbor by swapping the position of cities'''
     route = [state[0]]
     sample = random.sample(state[1:len(state)-1],len(state[1:len(state)-1]))
     for x in sample:
@@ -55,6 +60,7 @@ def swap_cities(state): #state is a tour
     return route   
 
 def get_coordinates(state):
+    '''Get x, y coordinates of each vertex in a state'''
     X = []
     y = []
     for vertex in state:
@@ -62,16 +68,17 @@ def get_coordinates(state):
         y.append(vertex.vertical)
     return X, y
 
-def simulated_annealing(problem, T_min = 10,  initial_temperature = 1000, iteration_limit = 100, p = 0.99): 
+def simulated_annealing(problem, T_min = 10,  initial_temperature = 10000, iteration_limit = 200, p = 0.99): 
     #p is cooling rate
     '''Return a state in which all cities are visited only once.
     This algorithm picks a random move
-    and if that move improves the situation, it it accepted. Otherwise, the algorithm
+    and if that move improves the situation, it is accepted. Otherwise, the algorithm
     accepts the move with some probability less than 1.'''
     #Initial solution
     result = []
     coordinates_X = []
     coordinates_y = []
+    total_distance = 0
     best_state = None
     T = 0 
     loop = 0
@@ -81,12 +88,11 @@ def simulated_annealing(problem, T_min = 10,  initial_temperature = 1000, iterat
             T = initial_temperature
         else:
             if T < T_min:
-                return result, coordinates_X, coordinates_y, best_state
+                return result, coordinates_X, coordinates_y, best_state, total_distance
             else:
                 T = T * p
         neighbor_state = swap_cities(current_state)
         delta_e = distance(neighbor_state) - distance(current_state)
-
         if -delta_e > 0:
             current_state = neighbor_state
             result.append(current_state)
@@ -105,4 +111,4 @@ def simulated_annealing(problem, T_min = 10,  initial_temperature = 1000, iterat
     return result, coordinates_X, coordinates_y, best_state
 
 
-result = simulated_annealing(vertices)
+
