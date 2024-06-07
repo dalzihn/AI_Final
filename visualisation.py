@@ -48,9 +48,11 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.loop == len(solution) - 1:
             best_X = [x.horizon for x in best_solution]
             best_Y = [y.vertical for y in best_solution]
-            temp = [point.element for point in best_solution]
-            print(temp)
+            #temp = [point.element for point in best_solution]
+            #print(temp)
             self.line.setData(best_X, best_Y)
+        elif self.loop >= len(solution):
+            pass
         else:
             self.line.setData(coordinate_X[self.loop], coordinate_Y[self.loop])
         self.loop += 1
