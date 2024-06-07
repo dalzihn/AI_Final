@@ -14,7 +14,7 @@ Before running, you must install the Pyside6 library.
    When running, run this file only to show the process and result of solving the problem
 
 THIS CODE BELONGS TO:
-   Trần Vọng Triển
-   Nguyễn Thị Ngọc Diệp
-   Nguyễn Huy Hoàng
-   Mai Thanh Thảo
+   Trần Vọng Triển,
+   Nguyễn Thị Ngọc Diệp,
+   Nguyễn Huy Hoàng,
+   Mai Thanh Thảo,
