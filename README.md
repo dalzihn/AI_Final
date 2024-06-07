@@ -1,3 +1,5 @@
+Before running, you must install the Pyside6 library.
+
 1. The "graph.py" file.
    This file is used to build data structure for our data which are cities in this problem
 
