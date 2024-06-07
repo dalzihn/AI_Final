@@ -12,3 +12,9 @@ Before running, you must install the Pyside6 library.
 4. The "visualisation" file.
    This file consists of the interface of solving the problem
    When running, run this file only to show the process and result of solving the problem
+
+THIS CODE BELONGS TO:
+   Trần Vọng Triển
+   Nguyễn Thị Ngọc Diệp
+   Nguyễn Huy Hoàng
+   Mai Thanh Thảo
